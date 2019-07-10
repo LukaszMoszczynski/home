@@ -4,30 +4,144 @@ $grey-color: rgb(199, 199, 199);
 $white-color: rgb(255, 255, 255);
 
 
-.section {
-  padding: 50px 0;
+.section{
+  padding: 80px 0;
+}
+
+body {
+  overflow-x: hidden; 
+}
+/*ANIMATIONS*/
+
+.button {
+  padding: 0.5em 1em;
+  cursor: pointer;
+  color: $grey-color;
+  border: 2px solid $grey-color;
+  transition: 0.7s;
+  background: linear-gradient(60deg, $grey-color 50%, transparent 50%);
+  background-position: 100% 0;
+  background-size: 500%;
+  text-decoration: none;
+  box-shadow: none;
+  font-weight: 700;
+  &:hover {
+    color: $white-color;
+    background-position: 0 100%;
+  }
+}
+
+.hover {
+  transition: 0.3s;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  color: $black-color;
+  &:hover {
+    color: $grey-color;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: $grey-color;
+    visibility: hidden;           
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0s;
+  }
+  &:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+}
+
+.fade-In {
+  opacity: 1 !important;
+  animation: fadeInOpacity 1s linear;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    transform: scale(0.2)rotate(0deg);
+    opacity: 0;
+  }
+  50%{
+    transform: rotate(0.02deg);
+  }
+  100% {
+    transform: scale(1)rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@media only screen and (min-width: 993px){
+  .slide-In-Left {
+    margin-left: 0 !important;
+    opacity: 1 !important;
+    animation: slideInLeft 2s linear;
+  }
+
+  @keyframes slideInLeft {
+    0% {
+      transform: rotate(0deg);
+      margin-left: -500px;
+      opacity: 0;
+    }
+    50%{
+      transform: rotate(0.02deg);
+    }
+    100% {
+      transform: rotate(0deg);
+      margin-left: 0;
+    }
+  }
+
+  .slide-In-Right {
+    margin-left: 0 !important;
+    opacity: 1 !important;
+    animation: slideInRight 2s linear;
+  }
+
+  @keyframes slideInRight {
+    0% {
+      transform: rotate(0deg);
+      margin-left: 500px;
+      opacity: 0;
+    }
+    50%{
+      transform: rotate(0.02deg);
+    }
+    100% {
+      transform: rotate(0deg);
+      margin-left: 0;
+      opacity: 1;
+    }
+  }
 }
 /*GRID*/
 
-.container {
+.container{
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2%;
 }
 
-.row {
+.row{
   display: flex;
   flex-wrap: wrap;
   width: 100%;
 }
 
-.row::after {
+.row::after{
   content: "";
   clear: both;
   display: table;
 }
 
-[class*="col-"] {
+[class*="col-"]{
   float: left;
 }
 
@@ -44,7 +158,7 @@ $white-color: rgb(255, 255, 255);
 .col-11 {width: 91.667%;}
 .col-12 {width: 100%;}
 
-@media only screen and (min-device-width : 567px) and (max-device-width : 992px) {
+@media only screen and (min-width: 567px) and (max-width: 992px){
   .col-m-1 {width: 8.333%;}
   .col-m-2 {width: 16.667%;}
   .col-m-3 {width: 25%;}
@@ -59,7 +173,7 @@ $white-color: rgb(255, 255, 255);
   .col-m-12 {width: 100%;}
 }
 
-@media only screen and (min-device-width : 993px) {
+@media only screen and (min-width: 993px){
   .col-l-1 {width: 8.333%;}
   .col-l-2 {width: 16.667%;}
   .col-l-3 {width: 25%;}
@@ -77,7 +191,7 @@ $white-color: rgb(255, 255, 255);
 
 /*HERO*/
 
-.home {
+.home{
   background-image: url(https://via.placeholder.com/1200.png/ccc/fff);
   height: 100vh;
   background-size: cover;
@@ -86,31 +200,29 @@ $white-color: rgb(255, 255, 255);
   background-attachment: fixed;
   .home__nav{
     background-color: $white-color;
-    opacity: 0.7;
     transition: 0.6s;
     padding: 10px 0;
     position: fixed;
-    width: 100%;
-    &:hover {
-      opacity: 1;
-    }
-    .home__logo {
+    width: 100vw;
+    z-index: 3;
+    @media only screen and (min-width : 993px){
+      opacity: 0.7;
+      &:hover {
+        opacity: 1;
+      }
+    }    
+    .home__logo{
       text-align: center;
       padding: 10px 0;
-      @media only screen and (min-device-width : 993px){
+      @media only screen and (min-width : 993px){
         text-align: left;
       }
     }
-    .home__menu {
+    .home__menu{
       display: flex;
       justify-content: space-around;
       align-items: center;
       height: 100%;
-      .menu__item {
-        text-decoration: none;
-        color: $black-color;
-        cursor: pointer;
-      }
     }
   }  
 }
@@ -119,26 +231,38 @@ $white-color: rgb(255, 255, 255);
 
 .about{
   .about__row {
-    display: flex;
     justify-content: center;
     align-items: center;
-    .about__block{
-      padding: 10px;
-      max-width: 280px;
-      min-height: 500px;
+    @media only screen and (min-width : 993px){
+        justify-content: space-between;
+    }
+    .about__container{
       display: flex;
-      justify-content: space-between;
-      flex-direction: column;
-      .about__image{
-        width: 100%;
-        height: 150px;
-      }
-      .about__text {
-       padding: 10px 0;
-      }
-      .about__button{
-        width: 100%;
-        height: 50px;
+      align-items: center;
+      justify-content: center;
+      .about__block{
+        max-width: 250px;
+        min-height: 400px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        margin: 0 10px 40px;
+        border: 1px solid $grey-color;
+        opacity: 0;
+        @media only screen and (min-width : 993px){
+          margin: 20px;
+        }
+        .about__image{
+          width: 100%;
+          height: 150px;
+        }
+        .about__text{
+         padding: 10px;
+        }
+        .about__button{
+          width: 100%;
+          height: 50px;
+        }
       }
     }
   } 
@@ -146,12 +270,17 @@ $white-color: rgb(255, 255, 255);
 
 /*OFFER SECTION*/
 
-.offer {
+.offer{
   .offer__image{
     width: 100%;
-    margin: 20px 0;
-    @media only screen and (min-device-width : 993px){
-     margin: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-height: 400px;
+    @media only screen and (min-width : 993px){
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: -500px;
+      opacity: 0;
     }
   }
   .offer__text{
@@ -160,21 +289,25 @@ $white-color: rgb(255, 255, 255);
       display: flex;
       align-content: space-between;
       justify-content: center;
-       @media only screen and (min-device-width : 993px){
-        padding-left: 50px;
-      }
       .text__block{
         display: flex;
         flex-direction: row;
         margin: 20px 0;
-        @media only screen and (min-device-width : 993px){
+        opacity: 0;
+        @media only screen and (min-width : 993px){
            margin: 0;
-        }   
+        }
         .text__image{
-
+          max-height: 100px;
+          min-width: 100px;
+          @media only screen and (min-width : 993px){
+             margin-left: 20px;
+             min-width: 150px;
+             max-height: 150px;
+          }   
         }
         .text__text{
-          padding-left: 10px;
+          padding: 0 0 10px 20px;
         }
       }
     }
@@ -183,6 +316,40 @@ $white-color: rgb(255, 255, 255);
 
 
 /*COMPANY SECTION*/
-.company {
+.company{
+  .company__block{
+    @media only screen and (min-width : 993px){
+     flex-direction: row-reverse;
+    }
+    .company__image{
+      width: 100%;
+      max-height: 400px;
+      margin-bottom: 20px;
+      
+     @media only screen and (min-width : 993px){
+       margin-bottom: 0;
+       margin-left: 500px;
+       opacity: 0;
+      }
+    }
+    .company__text {
+      opacity: 0;
+      @media only screen and (min-width : 993px){
+       padding-right: 20px;
+      }
+    }
+  }
+}
 
+.footer{
+  background-color: $grey-color;
+  color: $white-color;
+  .footer__block{
+    .footer__text {
+      margin: 20px;
+      @media only screen and (min-width : 993px){
+       margin: 0;
+      }
+    } 
+  }
 }
